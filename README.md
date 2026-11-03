@@ -83,30 +83,98 @@ A. Open After Effects and write an Adobe ExtendScript (.jsx) in step "B." below:
 B. Save the following javascript code as CorridorKey_Bridge.jsx:
 
 ```
-(function() {
-    // 1. Define paths (use double backslashes for Windows paths or JS will break)
-    var pythonPath = "C:\\path\\to\\CorridorKey2.0\\venv\\Scripts\\python.exe";
-    var inferScript = "C:\\path\\to\\CorridorKey2.0\\infer.py";
-    var inputVideo = "C:\\path\\to\\your\\footage.mp4"; 
-    var outputDir = "C:\\path\\to\\output_folder";
+(function(thisObj) {
+    // 1. Build Dockable UI Panel
+    var win = (thisObj instanceof Panel) ? thisObj : new Window("palette", "CorridorFreeKey 2.0 Bridge", undefined, {resizeable:true});
+    win.orientation = "column";
+    win.alignChildren = ["fill", "top"];
 
-    // 2. Build the command line argument string
-    var cmd = '"' + pythonPath + '" "' + inferScript + '" --input "' + inputVideo + '" --output_dir "' + outputDir + '"';
+    // UI: Footage Selection
+    var pnlMain = win.add("panel", undefined, "1. Source");
+    pnlMain.alignChildren = ["fill", "top"];
+    var btnFootage = pnlMain.add("button", undefined, "Select Footage (Click 2)");
+    var txtFootage = pnlMain.add("statictext", undefined, "No file selected", {truncate: "middle"});
+    var footageFile = null;
 
-    // 3. Execute the Python backend from inside After Effects
-    alert("Starting CorridorKey 2.0 processing... AE will freeze until complete.");
-    var result = system.callSystem(cmd);
-    alert("Processing Complete!\n" + result);
+    btnFootage.onClick = function() {
+        footageFile = File.openDialog("Select Input Footage");
+        if (footageFile) txtFootage.text = footageFile.fsName;
+    };
 
-    // 4. Import the generated alpha matte video back into the project
-    var alphaFile = new File(outputDir + "/alpha.mp4");
-    if (alphaFile.exists) {
-        var importOptions = new ImportOptions(alphaFile);
-        app.project.importFile(importOptions);
-    } else {
-        alert("Error: Expected alpha.mp4 output file was not found in the directory.");
+    // UI: Optional Toggles
+    var pnlOpts = win.add("panel", undefined, "2. Settings");
+    pnlOpts.alignChildren = ["fill", "top"];
+
+    var grpMask = pnlOpts.add("group");
+    var chkMask = grpMask.add("checkbox", undefined, "1st Frame Mask (Click 4)");
+    var btnMask = grpMask.add("button", undefined, "Select Mask");
+    btnMask.enabled = false;
+    var txtMask = pnlOpts.add("statictext", undefined, "No mask selected", {truncate: "middle"});
+    var maskFile = null;
+
+    chkMask.onClick = function() { btnMask.enabled = chkMask.value; };
+    btnMask.onClick = function() {
+        maskFile = File.openDialog("Select 1st Frame Mask (PNG)");
+        if (maskFile) txtMask.text = maskFile.fsName;
+    };
+
+    var chkEXR = pnlOpts.add("checkbox", undefined, "Export EXR 16-bit float (Click 5)");
+    var chkLowVram = pnlOpts.add("checkbox", undefined, "Low-Memory GPU (Click 6)");
+
+    // UI: Execution
+    var btnProcess = win.add("button", undefined, "Process / Render (Click 3)");
+
+    btnProcess.onClick = function() {
+        if (!footageFile) { 
+            alert("Please select input footage first."); 
+            return; 
+        }
+
+        // Define Backend Paths (Update these for your machine)
+        var pythonPath = "C:\\path\\to\\CorridorKey2.0\\venv\\Scripts\\python.exe";
+        var inferScript = "C:\\path\\to\\CorridorKey2.0\\infer.py";
+        var outputDir = footageFile.parent.fsName + "\\CK_Output";
+
+        // Build base command
+        var cmd = '"' + pythonPath + '" "' + inferScript + '" --input "' + footageFile.fsName + '" --output_dir "' + outputDir + '"';
+
+        // Append optional flags based on checkboxes
+        if (chkEXR.value) {
+            cmd += ' --output_format exr --frame_dir_linear --outputs alpha fg cutout'; //
+        }
+        if (chkMask.value && maskFile) {
+            cmd += ' --hint_first_frame "' + maskFile.fsName + '" --hint_quality 0.95'; //[cite: 1]
+        }
+        if (chkLowVram.value) {
+            cmd += ' --low_vram --hann_chunk 8 --hann_stride 4'; //[cite: 1]
+        }
+
+        alert("Processing starting...\nAE will freeze until complete.\nOutput routing to: " + outputDir);
+        var result = system.callSystem(cmd);
+
+        // Import Logic
+        if (!chkEXR.value) {
+            var alphaMp4 = new File(outputDir + "/alpha.mp4"); //[cite: 1]
+            if (alphaMp4.exists) {
+                app.project.importFile(new ImportOptions(alphaMp4));
+            }
+        } else {
+            alert("EXR Sequence generated in " + outputDir + ".\nPlease import manually via File > Import and select 'Sequence'.");
+        }
+        
+        alert("Processing Complete!\n" + result);
+    };
+
+    // Initialization
+    win.onResizing = win.onResize = function() { this.layout.resize(); };
+    if (win instanceof Window) { 
+        win.center(); 
+        win.show(); 
+    } else { 
+        win.layout.layout(true); 
+        win.layout.resize(); 
     }
-})();
+})(this);
 ```
 
 # 6. HOW TO USE YOUR NEW BRIDGE:
@@ -115,7 +183,7 @@ B. Save the following javascript code as CorridorKey_Bridge.jsx:
 2. File > Scripts > Run Script File... find your CorridorKey_Bridge.jsx  
 3. Script executes GPU on the PyTorch model using your specified footage and renders the alpha pass into your project bin!  
 
-# 7. FINE TUNING
+# 7. FINE TUNING (ALREADY BUILT IN THE PLUGIN! BUT THIS IS FYI:)
 
 A. Linear VFX & HDR Image Sequence Workflow (EXR)
 
