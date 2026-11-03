@@ -80,7 +80,7 @@ A. Open After Effects and write an Adobe ExtendScript (.jsx) in step "B." below:
 - triggers the CorridorKey Python script via the command line, and  
 - imports the keyed alpha/foreground maps back into your timeline.  
   
-B. Save the following javascript code as CorridorKey_Bridge.jsx:
+B. Save the following javascript code as CorridorFreeKey2.0.jsx:
 
 ```
 (function(thisObj) {
