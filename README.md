@@ -1,5 +1,5 @@
-# CorridorKey-2.0-free-After-Effects-Python-Script
-A free guide to install a python environment and run a script to have your own After Effects plugin for Corridor Key 2.0 for here: https://github.com/nikopueringer/CorridorKey2.0
+# CorridorKey 2.0 FREE After Effects Plugin (using Python + AE Script)
+A free guide to install a python environment and run a script to have your own After Effects plugin for _Corridor Key 2.0_ from here: https://github.com/nikopueringer/CorridorKey2.0
 
 To build or use a CorridorKey 2.0 After Effects plugin, you do not need to compile or build a custom C++ integration from this repository.
 As stated in the repository's official documentation, an official After Effects plugin and standalone application have already been fully built and released.
