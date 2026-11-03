@@ -119,7 +119,7 @@ A. Linear VFX & HDR Image Sequence Workflow (EXR)
 
 If you work inside professional linear pipelines rather than compressed video files, pass the --output_format exr and --frame_dir_linear flags.   
 This stops display-gamma clipping and exports standard 16-bit float EXR frames.  
-// Replace your script's cmd variable with this structure for EXR pipelines (javascript):
+*Replace your script's cmd variable with this structure for EXR pipelines (javascript):*
 ```
 var cmd = '"' + pythonPath + '" "' + inferScript + '" --input "' + inputVideo + '" --output_dir "' + outputDir + '" --output_format exr --frame_dir_linear --outputs alpha fg cutout';
 ```
@@ -129,7 +129,7 @@ B. Automating "First-Frame Hints" from After Effects Layers
 
 CorridorKey 2.0 uses a first-frame alpha mask to definitively identify your target subject and anchor the tracking through time.  
 You can manually paint a rough mask on frame 1 in AE, export it, and tell the backend model to treat it as a trusted guide.  
-// Append the first-frame tracking flags to your command string (javascript):
+*Append the first-frame tracking flags to your command string (javascript):*
 ```
 var firstFrameMatte = "C:\\path\\to\\your\\exported_frame_1_mask.png";
 var cmd = '"' + pythonPath + '" "' + inferScript + '" --input "' + inputVideo + '" --output_dir "' + outputDir + '" --hint_first_frame "' + firstFrameMatte + '" --hint_quality 0.95';
@@ -139,7 +139,7 @@ C. Low-Memory GPU Optimization
 
 If processing complex 4K resolution timelines causes After Effects to crash with an out-of-memory error,  
 force the staged execution matrix to disk by passing the --low_vram flag alongside a modified window frame slice configuration.   
-// Drop processing strain by downsizing the temporal chunking grid (javascript):
+*Drop processing strain by downsizing the temporal chunking grid (javascript):*
 ```
 var cmd = '"' + pythonPath + '" "' + inferScript + '" --input "' + inputVideo + '" --output_dir "' + outputDir + '" --low_vram --hann_chunk 8 --hann_stride 4';
 ```
