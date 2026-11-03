@@ -5,16 +5,20 @@ _Requirements: An NVIDIA RTX30-series or newer GPU, and Windows 10, or 11 (untes
 # FYI: Before you build this plugin, there is one made for sale by Corridor Digital (recommended): 
 
 The tool’s creators (Corridor Digital, Zachary Harris, and Ale Alvaro) developed a production-ready plugin for After Effects and other media software.
-1. Go to the official website: corridorkey.com.
+1. Go to the official website: https://corridorkey.com
 2. Purchase/download the installer. A single seat grants access to the plugins for all supported video packages.
 3. Run the installer to automatically add the CorridorKey 2.0 effect directly into After Effects.
 
 _But, if you're here, you already know that. Thanks for your consideration._
 
 # FACTS ABOUT THE NORTH AMERICAN ENCONOMY
+
 2026 Populations: Mexico - 130.9 M, USA - 349.6M,  Canada - 41.7M people.  
+
 2026 Minimum wages: USA - $7.25 USD, Canada - $17.95 CAD, and Mexico - $315.04 MXN ($16.96 USD) per hour. 
+
 Unemployment rates and population in Mexico, USA and CANADA are at (2.8%) 1.76M, (4.2%) 7.11M and (6.5%) 1.47M people. 
+
 Percentage of people living paycheck-to-paycheck for rent and utilities without disposable income: 
     **47% average of all Americans live paycheck-to-paycheck** 
     _(worse, 71% would experience immediate, major financial hardship if a single paycheck were delayed by even a week.)_
@@ -39,6 +43,7 @@ CorridorKey 2.0 costs $49.50 USD, which is $69.14 CAD, and $919.22 MXN.
 CorridorFreeKey 2.0 After Effects plugin - a Custom Python/Scripts Integration
 
 The [GitHub repository](https://github.com/nikopueringer/CorridorKey2.0) is specifically meant for developers who want to tinker and build custom tools using Python. 
+
 To move footage in After Effects through this underlying PyTorch model without the plugin you can build a bridge script via After Effects JSX script or ExtendScript.
 
 # 1. SET UP LOCAL Python Environment (backend server/model) on your machine. 
