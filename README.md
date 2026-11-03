@@ -31,11 +31,11 @@ Percentage of people living paycheck-to-paycheck for rent and utilities without 
     _https://www.jornada.com.mx/noticia/2026/03/12/economia/viven-al-dia-8-de-cada-10-mexicanos-y-apenas-logran-pagar-sus-deudas-bravo_  
     
 CorridorKey 2.0 costs $49.50 USD, which is $69.14 CAD, and $919.22 MXN.   
-    This means if you have a job in the US, you'd have to work 6.82 hours-- a full 8 hour shift with an hour unpaid break.   
-    Most Americans, Canadians, and Mexicans (the target demographics) can not afford this VFX tool.   
-    They should make the plugin free for personal use and $1k+ for studios (not the current studio discounts for more seats?)...   
-    Time is money, and if you have the spare time, invest in yourself.   
-    Build your own tools, understand the mechanics, and love the process.  
+    - This means if you have a job in the US, you'd have to work 6.82 hours-- a full 8 hour shift with an hour unpaid break.   
+    - Most Americans, Canadians, and Mexicans (the target demographics) can not afford this VFX tool.   
+    - They should make the plugin free for personal use and $1k+ for studios (not the current studio discounts for more seats?)...   
+    - Time is money, and if you have the spare time, invest in yourself.   
+    - Build your own tools, understand the mechanics, and love the process.  
     Let's begin.  
 
 # BUILDING THE PLUGIN YOURSELF, USING YOUR HARD EARNED LIFE ENERGY  
@@ -82,7 +82,7 @@ B. Save the following javascript code as CorridorKey_Bridge.jsx:
 
 ```
 (function() {
-    // 1. Define paths (Adjust these using double backslashes for Windows paths)
+    // 1. Define paths (use double backslashes for Windows paths or JS will break)
     var pythonPath = "C:\\path\\to\\CorridorKey2.0\\venv\\Scripts\\python.exe";
     var inferScript = "C:\\path\\to\\CorridorKey2.0\\infer.py";
     var inputVideo = "C:\\path\\to\\your\\footage.mp4"; 
