@@ -1,6 +1,6 @@
 # CorridorKey 2.0 FREE After Effects Plugin (using Python + AE Script)  
 "CorridorFreeKey 2.0"
-A free guide to install a python environment and run a script to have your own After Effects plugin for _Corridor Key 2.0_ from here: https://github.com/nikopueringer/CorridorKey2.0
+A free guide to install a python environment and run a script to have your own After Effects plugin for _Corridor Key 2.0_ from here: https://github.com/nikopueringer/CorridorKey2.0  
 _Requirements: An NVIDIA RTX30-series or newer GPU, and Windows 10, or 11 (untested)_
 
 # FYI: Before you build this plugin, there is one made for sale by Corridor Digital (recommended): 
