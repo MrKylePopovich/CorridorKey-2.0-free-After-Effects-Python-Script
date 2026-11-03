@@ -48,7 +48,8 @@ To move footage in After Effects through this underlying PyTorch model without t
 
 # 1. SET UP LOCAL Python Environment (backend server/model) on your machine. 
 
-Open Command Prompt (cmd) on Windows and navigate to where you want to store the project directory.  
+a. Navigate to the folder where you want to store the project directory.    
+b. Open Command Prompt, type "cmd" in the file explorer address bar and press enter.
 
 # 2. CLONE THE REPOSITORY VIA BASH (BOURNE AGAIN SHELL) IN COMMAND PROMPT or POWERSHELL
 _a command-line interface (CLI) and scripting language that allows you to talk directly to your computer's operating system by typing text commands. Think of it as a text-based alternative to clicking on icons and folders in your normal desktop view._  
